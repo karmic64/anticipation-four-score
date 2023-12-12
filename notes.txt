@@ -1,0 +1,67 @@
+
+
+----------------------------------------------- RAM
+
+$00 - ppuctrl mirror
+$01 - ppumask mirror
+
+$02 - frame count
+$03 - half-frame count
+
+$04-$0f - temp?
+
+$10-$11 - game mode ptr
+
+$12-$15 - random number
+
+$16-$19 - joypad (1 raw, 1 filtered, 2 raw, 2 filtered)
+
+$22-$41 - palette
+
+$ac - number of players
+$ad - number of computer players
+$ae - muzukashisa meter pixel-position
+$af - skill level (0=easy, 3=very hard)
+
+$c9-$ff - probably free zp?
+
+$01xx - seems only used for stack, it is not even cleared
+
+$02xx - OAM mirror
+
+$0300-$03bf - music
+
+
+
+
+----------------------------------------------- ROM
+
+$8c5d -
+	calls $8d9a with X = ($046e)-1 -> current player number
+	if $44 & #$02, swaps joysticks
+	yeah this is bullshit code i should probably fix to work more sanely
+	
+
+$8d9a - check player X button press
+	player number in X (0-indexed, needs to be preserved)
+	Z flag set if pressed
+	also writes something to $44?
+		if number of players == 2 and player number == 1, 2
+		else player number & 2
+		i think this is the controller of the current player
+
+$8ee4 - read joy input
+
+
+
+$ff5c-$ff7f - free space!
+
+$ff80 - delay
+
+$ff87 - mmc1 reset
+$ff8d - mmc1 control
+$ffa1 - mmc1 chr 0
+$ffb5 - mmc1 chr 1
+$ffc9 - mmc1 prg
+
+$ffdd - reset
